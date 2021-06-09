@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Product extends Model
 {
     use HasFactory;
+    const BORRADOR = 1;
+    const PUBLICADO = 2;
 
     protected $guarded = ['id','created_at', 'updated_at'];
 
@@ -31,12 +33,12 @@ class Product extends Model
     //Relación muchos a muchos
 
     public function colors(){
-        return $this->hasMany(Color::class);
+        return $this->belongsToMany(Color::class);
     }
 
     //Relación uno a muchos polimorfica
 
-    public function image(){
+    public function images(){
         return $this->morphMany(Image::class, 'imageable');
     }
 }
