@@ -11,7 +11,7 @@ class CategoryFilter extends Component
 {
     use WithPagination;
     public $category, $subcategoria, $marca;
-    public $view = "list";
+    public $view = "grid";
 
     public function render()
     {
