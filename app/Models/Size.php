@@ -20,6 +20,6 @@ class Size extends Model
     //Relación muchos a muchos
 
     public function colors(){
-        return $this->hasMany(Color::class);
+        return $this->belongsToMany(Color::class);
     }
 }
