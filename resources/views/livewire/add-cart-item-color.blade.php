@@ -1,12 +1,20 @@
 <div x-data>
-    <p class="text-xl text-gray-700">Color:</p>
+    <p class="text-xl text-gray-700"> Color: </p>
     <select class="form-control w-full" wire:model="color_id">
         <option value="" selected disabled>Selecciona un color</option>
         @foreach ($colors as $color)
-            <option value=" {{$color->id}} "> {{$color->name}} </option>
+            <option class="capitalize" value="{{$color->id}}">{{__($color->name)}}</option>
         @endforeach
     </select>
-    <div class="flex mt-4">
+    <p class="text-gray-700 my-4">
+        <span class="font-semibold text-lg">Stock disponible:</span>
+        @if ($quantity)
+            {{$quantity}}
+        @else
+            {{$product->stock}}
+        @endif   
+    </p>
+    <div class="flex">
         <div class="mr-4">
             <x-jet-secondary-button
                 disabled
@@ -28,7 +36,13 @@
             </x-jet-secondary-button>
         </div>
         <div class="flex-1">
-            <x-button color="yellow" class="w-full" x-bind:disabled="!$wire.quantity">
+            <x-button
+            color="yellow"
+            class="w-full"
+            x-bind:disabled="!$wire.quantity"
+            wire:click="addItem"
+            wire:loading.attr="disabled"
+            wire:target="addItem">
                 Agregar al carrito de compras
             </x-button>
         </div>
